@@ -5,7 +5,7 @@ import * as part1 from "./part1";
 import * as part2 from "./part2";
 
 describe("day1", () => {
-  it("part1: can get correct result for example", () => {
+  it("part1: example", () => {
     const result = part1.calibrateDocument(part1ExampleDocument);
     expect(result).toBe(142);
   });
