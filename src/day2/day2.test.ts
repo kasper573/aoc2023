@@ -13,7 +13,7 @@ describe("day2", () => {
     expect(result).toBe(8);
   });
 
-  it("part2: input", () => {
+  it("part1: input", () => {
     const result = part1.sumOfPossibleGameIDs(inputText, {
       red: 12,
       green: 13,
