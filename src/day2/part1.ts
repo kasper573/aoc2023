@@ -10,7 +10,7 @@ export function sumOfPossibleGameIDs(
   return sumOfIDs;
 }
 
-function parseGames(input: string): Game[] {
+export function parseGames(input: string): Game[] {
   const lines = input.split(/[\n\r]+/);
   return lines.map(parseGame);
 }
@@ -60,6 +60,6 @@ interface Game {
   cubes: CubeSet[];
 }
 
-type Color = "red" | "blue" | "green";
-type CubeSet = Partial<CubeCounts>;
+export type Color = "red" | "blue" | "green";
+export type CubeSet = Partial<CubeCounts>;
 type CubeCounts = Record<Color, number>;
