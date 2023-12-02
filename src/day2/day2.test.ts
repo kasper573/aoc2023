@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import * as part1 from "./part1";
+import * as part2 from "./part2";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -20,6 +21,11 @@ describe("day2", () => {
       blue: 14,
     });
     expect(result).toBe(1734);
+  });
+
+  it("part2: example", () => {
+    const result = part2.sumOfMinimumSetPowers(exampleGameRecord);
+    expect(result).toBe(2286);
   });
 });
 
