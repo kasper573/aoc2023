@@ -1,34 +1,29 @@
 export function calibrateDocument(inputText: string): number {
   const inputLines = inputText.split(/[\n\r]+/);
-  return inputLines.reduce((sum, line) => sum + lineCalibrationValue(line), 0);
+  return inputLines.reduce((sum, line) => sum + lineValue(line), 0);
 }
 
-export function lineCalibrationValue(line: string): number {
-  const results = Array.from(findDigitStrings(line));
-
-  const firstResult = results[0];
-  const firstNumber = numericWordMap[firstResult] ?? Number(firstResult);
-  const lastResult = results[results.length - 1];
-  const lastNumber = numericWordMap[lastResult] ?? Number(lastResult);
-
+export function lineValue(line: string): number {
+  const firstNumber = firstDigit(line, 1);
+  const lastNumber = firstDigit(line, -1);
   return Number(`${firstNumber}${lastNumber}`);
 }
 
-function* findDigitStrings(line: string) {
-  for (let i = 0; i < line.length; i++) {
-    const matchingWord = numericWords.find(
-      (word) => word === line.substring(i, i + word.length)
-    );
-    if (matchingWord) {
-      yield matchingWord;
-    } else if (/\d/.test(line[i])) {
-      yield line[i];
+function firstDigit(str: string, direction: 1 | -1): number | undefined {
+  const [init, end] = direction === 1 ? [0, str.length] : [str.length - 1, -1];
+
+  for (let i = init; i !== end; i += direction) {
+    if (/\d/.test(str[i])) {
+      return Number(str[i]);
+    }
+    const word = numberWords.find((w) => w === str.substring(i, i + w.length));
+    if (word) {
+      return numberWordMap[word];
     }
   }
 }
 
-const numericWordMap: Record<string, number> = {
-  zero: 0,
+const numberWordMap: Record<string, number> = {
   one: 1,
   two: 2,
   three: 3,
@@ -40,4 +35,4 @@ const numericWordMap: Record<string, number> = {
   nine: 9,
 };
 
-const numericWords = Object.keys(numericWordMap);
+const numberWords = Object.keys(numberWordMap);
